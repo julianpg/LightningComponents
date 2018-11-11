@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LIG_JG_ViewAllActivity_On_Event_And_Deactivate_Buttons</fullName>
+    <types>
+        <members>LIG_RelationshipDeactivateController</members>
+        <members>LIG_RelationshipDeactivateControllerTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>LCC_ViewAllActivity_Event</members>
+        <members>LIG_RelationshipActivate</members>
+        <members>LIG_RelationshipDeactivate</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>Event.View_All_Activity</members>
+        <members>Relationship__c.Activate</members>
+        <members>Relationship__c.Deactivate</members>
+        <name>QuickAction</name>
+    </types>
+    <version>44.0</version>
+</Package>

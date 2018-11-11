@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LIG_JG_JSChartComponents</fullName>
+    <types>
+        <members>LIG_ChartJSComponentControllerTest</members>
+        <members>LIG_ChartJSController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>LIG_ChartJSComponent</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>ChartPlugin</members>
+        <members>ChartPlugin2</members>
+        <members>ChartsJS</members>
+        <name>StaticResource</name>
+    </types>
+    <version>44.0</version>
+</Package>

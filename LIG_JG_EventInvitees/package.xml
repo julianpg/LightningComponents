@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LIG_JG_EventInvitees</fullName>
+    <types>
+        <members>LIGAddEventInviteesTest</members>
+        <members>LIG_AddInviteesController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AddNewRowEvt</members>
+        <members>DeleteRowEvt</members>
+        <members>InviteeList</members>
+        <members>LIG_Add_Event_Invitees</members>
+        <members>customLookup</members>
+        <members>customLookupResult</members>
+        <members>selectedsObjectRecordEvent</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>Event_Record_Page_New</members>
+        <name>FlexiPage</name>
+    </types>
+    <version>44.0</version>
+</Package>

@@ -1,0 +1,69 @@
+<aura:component controller="LIG_AddInviteesController" implements="force:hasRecordId,flexipage:availableForAllPageTypes">
+
+    <!--Event handler to Add and Delete Row Event which is fired from Child Component-->    
+    <aura:handler name="DeleteRowEvt" event="c:DeleteRowEvt" action="{!c.removeDeletedRow}"/>
+    <aura:handler name="AddRowEvt" event="c:AddNewRowEvt" action="{!c.addNewRow}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- Attributes to store users to display, the parent event if there is one and an index of how many users-->  
+    <aura:attribute name="EventRelationList" type="User[]"/>
+    <aura:attribute name="IndexNumber" type="string"/> 
+    <aura:attribute name="ParentEvent" type="object"/>
+  	<!--Table Part-->
+   <!--if the current event is a child event then display a link to the parent event, useful for user to make any chnages-->
+    <aura:if isTrue="{!v.ParentEvent.Id != null}">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate">#</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate slds-align_absolute-center" title="Invitee">Invitee</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title=" "></div>
+                    </th>
+                </tr>
+            </thead>   
+            <tbody>
+               <!--Iterate the child Component to display users invited to an event -->         
+                <aura:iteration items="{!v.EventRelationList}" var="item" indexVar="index">
+                    <c:InviteeList EventId="{!v.recordId}" EventRelationInstance="{!item}" ChildEvent="true" rowIndex="{!index}"/>
+                </aura:iteration>          
+            </tbody>       
+        </table>
+       <div>
+        <div class="slds-float_right">
+		<lightning:button variant="base" label="Click for full view/to manage event" title="Click for full view/to manage event" onclick="{!c.goToParentEvent}"/>
+        </div>
+     	<div class="slds-text-color_weak slds-float_left slds-p-top_xx-small" >Event Owner: {!v.ParentEvent.Owner.Name}</div>
+        </div>
+        
+       <aura:set attribute="else">
+         <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate">#</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate slds-align_absolute-center" title="Invitee">Invitee</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title=" "></div>
+                    </th>
+                </tr>
+            </thead>   
+            <tbody>
+               <!--Iterate the child Component to display users invited to an event -->         
+                <aura:iteration items="{!v.EventRelationList}" var="item" indexVar="index">
+                    <c:InviteeList EventId="{!v.recordId}" EventRelationInstance="{!item}" rowIndex="{!index}"/>
+                </aura:iteration>
+                <!-- custom lookup component to add new invitees to an event-->
+                <c:customLookup objectAPIName="user" IconName="standard:user" EventId="{!v.recordId}" rowIndex="{!v.IndexNumber}"/>            
+            </tbody>       
+        </table>
+       </aura:set>
+    </aura:if>
+</aura:component>
