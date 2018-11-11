@@ -1,0 +1,105 @@
+<aura:component controller="LIG_IndustryCategoryMappingController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <!-- call doInit function on component load -->  
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+    
+    <!-- initial maps to hold the values returned by the server-->
+    <aura:attribute name="depnedentFieldMap"    type="map" description="map to store dependent values with controlling value"/>
+    <aura:attribute name="subDepnedentFieldMap" type="map" description="map to store sub dependent values with controlling value"/>
+    
+    <!--picklists that will display the values for the categories-->
+    <aura:attribute name="parentPicklistVal" type="list" default="[]" description="Main Category"/>
+	<aura:attribute name="subPicklistVal"    type="list" default="[]" description="Sub Category"/> 
+    <aura:attribute name="minorPicklistVal"  type="list" default="[]" description="Minor Category"/> 
+
+    
+    <!-- controls for the show/hide and disable the buttons and picklists -->
+    <aura:attribute name="disableSave" type="boolean" default="true"/>
+    <aura:attribute name="showEdit"    type="boolean" default="true"/>
+    <aura:attribute name="showCancel"  type="boolean" default="false"/>
+    <aura:attribute name="editAllowed" type="boolean" default="false"/>
+    
+    <!-- booleans to control if the picklists are editable or not -->
+    <aura:attribute name="bDisabledDependentFld"       type="boolean" default="true"/> 
+    <aura:attribute name="bDisabledSubDependentFld"    type="boolean" default="true"/>
+    <aura:attribute name="bDisabledParentDependentFld" type="boolean" default="true"/>
+   
+      
+    <!--Load Account record to display current categories and to update the record-->
+    <aura:attribute name="fields" type="Object"/>
+    <aura:attribute name="record" type="Object"/>
+    <force:recordData aura:id       ="recordLoader"
+                      layoutType    ="FULL"
+					  targetRecord  ="{!v.record}"
+                      recordId      ="{!v.recordId}" 
+                      targetFields  ="{!v.fields}"
+                      fields        ="Industry_Sub_Category__c,Industry_Minor_Category__c,Status__c"
+                      mode          ="EDIT"
+                      recordUpdated ="{!c.handleRecordUpdated}"
+                      />
+    
+    <!--Controller Field-->
+    <lightning:layoutItem size="12" padding="around-small">    
+        <lightning:select name     ="controllerFld"
+                          value    ="{!v.fields.Industry}"
+                          label    ="Display - Main Category"
+                          disabled ="{!v.bDisabledParentDependentFld}"
+                          onchange ="{!c.onControllerFieldChange}">
+            <aura:iteration items  ="{!v.parentPicklistVal}" var="val">
+                <option value="{!val}">{!val}</option>
+            </aura:iteration>
+        </lightning:select>
+    </lightning:layoutItem>
+    
+    <!--Dependent Field-->
+    <lightning:layoutItem size="12" padding="around-small">
+        <lightning:select name     ="subDependentFld"
+                          value    ="{!v.fields.Industry_Sub_Category__c}"
+                          label    ="Display - Sub Category"
+                          disabled ="{!v.bDisabledDependentFld}"
+                          onchange ="{!c.onSubControllerFieldChange}">
+       <!-- check if the record has an existing value or not, if so display the value otherwise display none -->
+       <aura:if isTrue="{!v.fields.Industry_Sub_Category__c != null}">
+            	<option value="">{!v.fields.Industry_Sub_Category__c}</option>
+           <aura:set attribute="else">
+                <option value="">---None---</option>
+           </aura:set>
+       </aura:if>
+            <aura:iteration items="{!v.subPicklistVal}" var="val">
+                <option value="{!val}">{!val}</option>
+            </aura:iteration>
+        </lightning:select>
+    </lightning:layoutItem>
+    
+    <!--sub Dependent Field-->
+    <lightning:layoutItem size="12" padding="around-small">
+        <lightning:select name     ="MinorDependentFld"
+                          value    ="{!v.fields.Industry_Minor_Category__c}"
+                          label    ="Display - Minor Category"
+                          disabled ="{!v.bDisabledSubDependentFld}"
+                          onchange ="{!c.onSubDependentFieldChange}">
+       <!-- check if the record has an existing value or not, if so display the value otherwise display none -->
+       <aura:if isTrue="{!v.fields.Industry_Minor_Category__c != null}">
+            	<option value="">{!v.fields.Industry_Minor_Category__c}</option>
+           <aura:set attribute="else">
+                <option value="">---None---</option>
+           </aura:set>
+       </aura:if>
+            <aura:iteration items="{!v.minorPicklistVal}" var="val">
+                <option value="{!val}">{!val}</option>
+            </aura:iteration>
+        </lightning:select>
+    </lightning:layoutItem>
+    
+    <!--we are checking if the current user is part of the virtual data team and -->
+    <aura:if isTrue="{!or(v.fields.Status__c != 'Locked',v.editAllowed)}">
+        <div class = "slds-align_absolute-center">
+            <aura:if isTrue="{!v.showCancel}">
+                <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.cancel}" />
+            </aura:if>
+            <aura:if isTrue="{!v.showEdit}">
+                <lightning:button variant="neutral" label="Edit" title="Edit" onclick="{!c.edit}"/>
+            </aura:if>
+            <lightning:button variant="Brand" label="Save" title="Save" disabled="{!v.disableSave}" onclick="{!c.save}"/>
+        </div>
+    </aura:if>
+</aura:component>
