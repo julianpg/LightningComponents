@@ -1,0 +1,47 @@
+.THIS {
+}
+
+.THIS .container li{
+    display:inline;
+    padding-left: 10px;
+}
+
+.THIS .container li span{
+    display:inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border-radius: 25px;
+}
+
+.THIS .strike{
+     text-decoration: line-through !important;
+}
+
+.THIS .container ul{
+    list-style:none;
+    white-space:nowrap;
+      
+}
+
+.THIS .container{
+    padding-top:5px;
+    width:500px;
+    height:30px;
+ 	overflow:auto;
+}
+
+.THIS .slabel{
+    display: inline;
+    height: 30px;
+    vertical-align: top;
+    padding-right: 10px;
+    padding-top: 5px;
+    border-right-style: solid;
+    border-color: #D3D3D3;
+    border-width: 2px;
+    
+}
+.THIS ::-webkit-scrollbar {
+    height: 5px;
+ }

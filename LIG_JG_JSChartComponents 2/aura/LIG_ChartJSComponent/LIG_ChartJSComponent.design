@@ -1,0 +1,9 @@
+<design:component>
+	<design:attribute name="report" label="Report" datasource="Open Opportunities,Closed Won Opportunities,Closed Won By Product,Closed Lost Analysis" default="Open Opportunities"/>
+    <design:attribute name="reportTitle" label="Report Title"/>
+    <design:attribute name="sourceReport" label="Report Developer Name"/>    
+    <sfdc:objects>
+        <sfdc:object>Account</sfdc:object>
+    </sfdc:objects>
+
+</design:component>

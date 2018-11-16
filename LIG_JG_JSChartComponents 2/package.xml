@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LIG_JG_JSChartComponents</fullName>
+    <types>
+        <members>LIG_ChartJSComponentControllerTest</members>
+        <members>LIG_ChartJSController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>LIG_ChartJSComponent</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>LIG_Report_Component_Reports/LIG_Agency_Closed_Lost_Analysis</members>
+        <members>LIG_Report_Component_Reports/LIG_Agency_Closed_Won_Opportunities</members>
+        <members>LIG_Report_Component_Reports/LIG_Agency_Closed_Won_Revenue_by_Product</members>
+        <members>LIG_Report_Component_Reports/LIG_Agency_Open_Opportunities_by_Owner</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>ChartPlugin</members>
+        <members>ChartPlugin2</members>
+        <members>ChartsJS</members>
+        <members>perfectscrollbar</members>
+        <members>perfectscrollbarStyle</members>
+        <name>StaticResource</name>
+    </types>
+    <version>44.0</version>
+</Package>
