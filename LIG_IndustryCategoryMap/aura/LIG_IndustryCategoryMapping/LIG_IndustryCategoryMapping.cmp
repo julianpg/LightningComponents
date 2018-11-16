@@ -13,17 +13,17 @@
 
     
     <!-- controls for the show/hide and disable the buttons and picklists -->
-    <aura:attribute name="disableSave" type="boolean" default="true"/>
-    <aura:attribute name="showEdit"    type="boolean" default="true"/>
-    <aura:attribute name="showCancel"  type="boolean" default="false"/>
-    <aura:attribute name="editAllowed" type="boolean" default="false"/>
+    <aura:attribute name="disableSave"      type="boolean" default="true"/>
+    <aura:attribute name="showEdit"         type="boolean" default="true"/>
+    <aura:attribute name="showCancel"       type="boolean" default="false"/>
+    <aura:attribute name="editAllowed"      type="boolean" default="false"/>
+    <aura:attribute name="displayIndustry"  type="boolean" default="true" description="display industry only on load then switch to the picklist value"/> 
     
     <!-- booleans to control if the picklists are editable or not -->
     <aura:attribute name="bDisabledDependentFld"       type="boolean" default="true"/> 
     <aura:attribute name="bDisabledSubDependentFld"    type="boolean" default="true"/>
     <aura:attribute name="bDisabledParentDependentFld" type="boolean" default="true"/>
-   
-      
+         
     <!--Load Account record to display current categories and to update the record-->
     <aura:attribute name="fields" type="Object"/>
     <aura:attribute name="record" type="Object"/>
@@ -32,7 +32,7 @@
 					  targetRecord  ="{!v.record}"
                       recordId      ="{!v.recordId}" 
                       targetFields  ="{!v.fields}"
-                      fields        ="Industry_Sub_Category__c,Industry_Minor_Category__c,Status__c"
+                      fields        ="Industry,Industry_Sub_Category__c,Industry_Minor_Category__c,Status__c"
                       mode          ="EDIT"
                       recordUpdated ="{!c.handleRecordUpdated}"
                       />
@@ -44,6 +44,14 @@
                           label    ="Display - Main Category"
                           disabled ="{!v.bDisabledParentDependentFld}"
                           onchange ="{!c.onControllerFieldChange}">
+       <aura:if isTrue="{!v.displayIndustry}">
+            <aura:if isTrue="{!v.fields.Industry != null}">
+            	<option value="">{!v.fields.Industry}</option>
+           <aura:set attribute="else">
+                <option value="">---None---</option>
+           </aura:set>
+           </aura:if>
+       </aura:if>            
             <aura:iteration items  ="{!v.parentPicklistVal}" var="val">
                 <option value="{!val}">{!val}</option>
             </aura:iteration>
@@ -58,12 +66,16 @@
                           disabled ="{!v.bDisabledDependentFld}"
                           onchange ="{!c.onSubControllerFieldChange}">
        <!-- check if the record has an existing value or not, if so display the value otherwise display none -->
-       <aura:if isTrue="{!v.fields.Industry_Sub_Category__c != null}">
-            	<option value="">{!v.fields.Industry_Sub_Category__c}</option>
-           <aura:set attribute="else">
-                <option value="">---None---</option>
-           </aura:set>
-       </aura:if>
+     
+           <aura:if isTrue="{!v.fields.Industry_Sub_Category__c != null}">
+              
+                    <option value="">{!v.fields.Industry_Sub_Category__c}</option>
+               
+               <aura:set attribute="else">
+                    <option value="">---None---</option>
+               </aura:set>
+           </aura:if>
+     
             <aura:iteration items="{!v.subPicklistVal}" var="val">
                 <option value="{!val}">{!val}</option>
             </aura:iteration>
@@ -78,12 +90,16 @@
                           disabled ="{!v.bDisabledSubDependentFld}"
                           onchange ="{!c.onSubDependentFieldChange}">
        <!-- check if the record has an existing value or not, if so display the value otherwise display none -->
-       <aura:if isTrue="{!v.fields.Industry_Minor_Category__c != null}">
-            	<option value="">{!v.fields.Industry_Minor_Category__c}</option>
-           <aura:set attribute="else">
-                <option value="">---None---</option>
-           </aura:set>
-       </aura:if>
+       
+           <aura:if isTrue="{!v.fields.Industry_Minor_Category__c != null}">
+               
+                    <option value="">{!v.fields.Industry_Minor_Category__c}</option>
+               
+               <aura:set attribute="else">
+                    <option value="">---None---</option>
+               </aura:set>
+           </aura:if>
+       
             <aura:iteration items="{!v.minorPicklistVal}" var="val">
                 <option value="{!val}">{!val}</option>
             </aura:iteration>
